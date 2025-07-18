@@ -79,7 +79,7 @@ export default function MyOrdersPage() {
                   </Button>
                 </div>
               </div>
-            ))}yr2'
+            ))}
           </div>
         )}
       </div>

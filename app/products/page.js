@@ -6,12 +6,14 @@ import { toast, Toaster } from "sonner"
 import Navbar from "@/components/navbar"
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { useRouter } from "next/navigation"
 const { updateCount } = require('@/components/navbar');
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const router = useRouter();
   useEffect(() => {
     document.title = "Royal Pets - Products"
     fetch("/api/products")
@@ -177,9 +179,10 @@ export default function ProductsPage() {
               return (
                 <div
                   key={product.id}
-                  className="h-[500px] bg-[#1a1a1a] border border-gray-800 rounded-xl py-4 px-2 hover:shadow-lg transition duration-300 flex flex-col justify-between"
+                  className="h-[500px] bg-[#1a1a1a] hover:cursor-pointer border border-gray-800 rounded-xl py-4 px-2 hover:shadow-lg transition duration-300 flex flex-col justify-between"
                 >
                   <img
+                    onClick={() => { router.push(`/products/${product.id}`) }}
                     src={product.image}
                     alt={product.name}
                     className="w-full h-48 object-cover rounded-md mb-4"
@@ -192,9 +195,9 @@ export default function ProductsPage() {
                       {isInWishlist(product.id) ? <FaHeart className="text-red-400" /> : <FaRegHeart />}
                     </Button>
                   </div>
-                  <h2 className="text-lg font-semibold line-clamp-2">{product.name}</h2>
-                  <p className="text-sm text-gray-400 mb-1 capitalize">{product.category}</p>
-                  <p className="text-amber-400 text-lg font-bold mb-4">₹{product.price}</p>
+                  <h2 onClick={()=>{router.push(`/products/${product.id}`)}} className="text-lg font-semibold line-clamp-2">{product.name}</h2>
+                  <p onClick={()=>{router.push(`/products/${product.id}`)}} className="text-sm text-gray-400 mb-1 capitalize">{product.category}</p>
+                  <p onClick={()=>{router.push(`/products/${product.id}`)}} className="text-amber-400 text-lg font-bold mb-4">₹{product.price}</p>
 
                   {qty > 0 ? (
                     <div className="flex items-center justify-between">

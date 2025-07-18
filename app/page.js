@@ -309,20 +309,19 @@ export default function HomePage() {
           <div>
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white">About Us</a></li>
-              <li><a href="#" className="hover:text-white">Contact</a></li>
-              <li><a href="#" className="hover:text-white">FAQ</a></li>
-              <li><a href="#" className="hover:text-white">Shipping Info</a></li>
+              <li><a href="/about" className="hover:text-white">About Us</a></li>
+              <li><a href="/return-policy" className="hover:text-white">Return Policy</a></li>
+              <li><a href="/faq" className="hover:text-white">FAQ</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold text-white mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white">Dog Supplies</a></li>
-              <li><a href="#" className="hover:text-white">Cat Supplies</a></li>
-              <li><a href="#" className="hover:text-white">Bird Supplies</a></li>
-              <li><a href="#" className="hover:text-white">Fish & Aquarium</a></li>
+              <li><a href="/categories/dogs" className="hover:text-white">Dog Supplies</a></li>
+              <li><a href="/categories/cats" className="hover:text-white">Cat Supplies</a></li>
+              <li><a href="/categories/birds" className="hover:text-white">Bird Supplies</a></li>
+              <li><a href="/categories/fish" className="hover:text-white">Fish & Aquarium</a></li>
             </ul>
           </div>
 
