@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import pool from "@/lib/db"
 import axios from "axios"
 import { getUserFromToken } from "@/lib/auth"
+import { v4 as uuidv4 } from 'uuid'
 
 export async function POST(req) {
     try {
@@ -22,6 +23,7 @@ export async function POST(req) {
         }
         const client_id = process.env.ENV === "prod" ? process.env.CF_APIKEY_PROD : process.env.CF_APIKEY_TEST;
         const client_secret = process.env.ENV === "prod" ? process.env.CF_APISECRET_PROD : process.env.CF_APISECRET_TEST;
+        const sid = 'user-psession-' + uuidv4().slice(0,13);
         const res = await axios.post(
             `${process.env.ENV === "prod"
                 ? "https://api.cashfree.com"
@@ -31,7 +33,7 @@ export async function POST(req) {
                 order_amount: total,
                 order_currency: "INR",
                 customer_details: {
-                    customer_id: `user_${userId}`,
+                    customer_id: sid,
                     customer_phone: phone
                 },
                 order_meta: {
