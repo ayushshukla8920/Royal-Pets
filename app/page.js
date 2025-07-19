@@ -310,8 +310,9 @@ export default function HomePage() {
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><a href="/about" className="hover:text-white">About Us</a></li>
-              <li><a href="/return-policy" className="hover:text-white">Return Policy</a></li>
+              <li><a href="/tnc" className="hover:text-white">Terms and Conditions</a></li>
               <li><a href="/faq" className="hover:text-white">FAQ</a></li>
+              <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
             </ul>
           </div>
 
