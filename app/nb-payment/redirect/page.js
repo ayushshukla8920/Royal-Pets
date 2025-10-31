@@ -1,31 +1,43 @@
 'use client';
 
-import { Suspense,useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
-function CallBackHandler() {
+function CallbackHandler() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const deviceId = searchParams.get("order_id");
+  const orderId = searchParams.get("order_id");
 
   useEffect(() => {
-    if (!deviceId) return;
+    const verifyAndRedirect = async () => {
+      if (!orderId) return;
 
-    const redirectUrl = `https://nbhackintool.vercel.app/payment/verification?deviceId=${encodeURIComponent(deviceId)}`;
-    window.location.href = redirectUrl;
-  }, [deviceId]);
+      try {
+        const res = await fetch(`/api/payment/cashfree/nbh/verify?order_id=${encodeURIComponent(orderId)}`);
+        if (!res.ok) throw new Error("Verification failed");
+        const data = await res.json();
+        if (!data.devId) throw new Error("Invalid response from server");
+        const redirectUrl = `https://nbhackintool.vercel.app/payment/verification?deviceId=${encodeURIComponent(data.devId)}`;
+        window.location.href = redirectUrl;
+      } catch (err) {
+        console.error("Callback error:", err);
+      }
+    };
+
+    verifyAndRedirect();
+  }, [orderId]);
 
   return (
     <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Redirecting...</h1>
-      <p>Please wait while we verify your payment.</p>
+      <h1>Verifying Payment...</h1>
+      <p>Please wait while we complete your transaction.</p>
     </main>
   );
 }
+
 export default function CallbackPage() {
   return (
-    <Suspense fallback={<div>Loading payment...</div>}>
-      <CallBackHandler />
+    <Suspense fallback={<div>Loading...</div>}>
+      <CallbackHandler />
     </Suspense>
   );
 }
