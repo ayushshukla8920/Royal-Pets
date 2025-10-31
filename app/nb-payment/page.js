@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { Suspense,useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { load } from "@cashfreepayments/cashfree-js";
 import { toast, Toaster } from "sonner";
