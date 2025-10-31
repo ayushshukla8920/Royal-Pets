@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 export async function POST(req) {
     try {
         const {uuid,phone} = await req.json();
-        let total = 20;
+        let total = 1;
         const client_id = process.env.ENV === "prod" ? process.env.CF_APIKEY_PROD : process.env.CF_APIKEY_TEST;
         const client_secret = process.env.ENV === "prod" ? process.env.CF_APISECRET_PROD : process.env.CF_APISECRET_TEST;
         const sid = uuid;
