@@ -3,6 +3,17 @@ import pool from "@/lib/db"
 import axios from "axios"
 import { v4 as uuidv4 } from 'uuid'
 
+export async function OPTIONS() {
+  return NextResponse.json({}, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*", 
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  })
+}
+
 export async function POST(req) {
     try {
         const {uuid,phone} = await req.json();
@@ -36,9 +47,29 @@ export async function POST(req) {
             }
         )
         const cashfreeOrder = res.data
-        return NextResponse.json({ success: true, paymentSessionId: cashfreeOrder.payment_session_id })
+        return NextResponse.json(
+              { success: true, paymentSessionId: cashfreeOrder.payment_session_id },
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                },
+              }
+            )
     } catch (err) {
         console.error("Cashfree Checkout Error", err)
-        return NextResponse.json({ success: false, message: "Payment initiation failed" }, { status: 500 })
+       return NextResponse.json(
+      { success: false, message: "Payment initiation failed" },
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      }
+    )
     }
 }
