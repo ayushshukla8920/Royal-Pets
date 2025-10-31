@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function CallbackPage() {
+function CallBackHandler() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const deviceId = searchParams.get("order_id");
@@ -20,5 +20,12 @@ export default function CallbackPage() {
       <h1>Redirecting...</h1>
       <p>Please wait while we verify your payment.</p>
     </main>
+  );
+}
+export default function CallbackPage() {
+  return (
+    <Suspense fallback={<div>Loading payment...</div>}>
+      <CallBackHandler />
+    </Suspense>
   );
 }
