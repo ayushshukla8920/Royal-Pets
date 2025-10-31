@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { load } from "@cashfreepayments/cashfree-js";
 import { toast, Toaster } from "sonner";
 
-export default function PaymentPage() {
+function PaymentHandler() {
   const cashfreeRef = useRef(null);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -41,5 +41,14 @@ export default function PaymentPage() {
       <h1>Redirecting to Payment Gateway...</h1>
       <p>Please wait while we securely process your payment.</p>
     </main>
+  );
+}
+
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div>Loading payment...</div>}>
+      <PaymentHandler />
+    </Suspense>
   );
 }
