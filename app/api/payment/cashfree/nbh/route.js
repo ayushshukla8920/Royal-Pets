@@ -17,7 +17,7 @@ export async function OPTIONS() {
 export async function POST(req) {
     try {
         const {uuid,phone} = await req.json();
-        let total = 1;
+        let total = 99;
         const client_id = process.env.ENV === "prod" ? process.env.CF_APIKEY_PROD : process.env.CF_APIKEY_TEST;
         const client_secret = process.env.ENV === "prod" ? process.env.CF_APISECRET_PROD : process.env.CF_APISECRET_TEST;
         const sid = uuid;
