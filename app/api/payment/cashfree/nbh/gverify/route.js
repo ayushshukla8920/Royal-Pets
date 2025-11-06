@@ -16,7 +16,7 @@ export async function GET(req) {
         "x-client-secret": client_secret
       }
     });
-    return NextResponse.json({ amount: response.data.order_amount, tmstp: reponse.data.created_at });
+    return NextResponse.json({ amount: response.data.order_amount, tmstp: response.data.created_at });
   } catch (err) {
     console.error("Payment verify error:", err)
     return NextResponse.json({ success: false, message: "Server error" }, { status: 500 })
