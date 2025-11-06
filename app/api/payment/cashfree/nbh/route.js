@@ -16,10 +16,11 @@ export async function OPTIONS() {
 
 export async function POST(req) {
     try {
-        const {uuid,phone,amt} = await req.json();
+        const {uuid,phone,amt,channel} = await req.json();
         const client_id = process.env.ENV === "prod" ? process.env.CF_APIKEY_PROD : process.env.CF_APIKEY_TEST;
         const client_secret = process.env.ENV === "prod" ? process.env.CF_APISECRET_PROD : process.env.CF_APISECRET_TEST;
         const sid = uuid;
+        const return_url = (channel=='nb')?`${process.env.NEXT_PUBLIC_BASE_URL}/nb-payment/redirect?order_id={order_id}`:`${process.env.NEXT_PUBLIC_BASE_URL}/gw-payment/redirect?order_id={order_id}`
         const res = await axios.post(
             `${process.env.ENV === "prod"
                 ? "https://api.cashfree.com"
@@ -33,7 +34,7 @@ export async function POST(req) {
                     customer_phone: phone
                 },
                 order_meta: {
-                    return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/nb-payment/redirect?order_id={order_id}`
+                    return_url: return_url
                 }
             },
             {
