@@ -13,8 +13,8 @@ function CallbackHandler() {
         const res = await fetch(`/api/payment/cashfree/nbh/verify?order_id=${encodeURIComponent(orderId)}`);
         if (!res.ok) throw new Error("Verification failed");
         const data = await res.json();
-        if (!data.devId) throw new Error("Invalid response from server");
-        const redirectUrl = `https://pay.ayushshukla8920.me/api/v1/payment/success`;
+        if (!data.amount) throw new Error("Invalid response from server");
+        const redirectUrl = `https://pay.ayushshukla8920.me/api/v1/payment/success?amt=${data.amount}&tmstp=${data.tmstp}`;
         window.location.href = redirectUrl;
       } catch (err) {
         console.error("Callback error:", err);
