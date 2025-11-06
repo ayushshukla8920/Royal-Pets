@@ -10,7 +10,7 @@ function CallbackHandler() {
     const verifyAndRedirect = async () => {
       if (!orderId) return;
       try {
-        const res = await fetch(`/api/payment/cashfree/nbh/verify?order_id=${encodeURIComponent(orderId)}`);
+        const res = await fetch(`/api/payment/cashfree/nbh/gverify?order_id=${encodeURIComponent(orderId)}`);
         if (!res.ok) throw new Error("Verification failed");
         const data = await res.json();
         if (!data.amount) throw new Error("Invalid response from server");
